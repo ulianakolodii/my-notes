@@ -88,6 +88,7 @@ const apiClient = {
   all: async () => getAllNotes(await dbPromise),
   delete: async (id: string) => deleteNote(await dbPromise, id),
   save: async (note: Note) => saveNote(await dbPromise, note),
+  search: async (text: string) => searchNote(await dbPromise, text),
 };
 
 export default apiClient;

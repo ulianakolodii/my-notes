@@ -18,6 +18,7 @@ type NotesContextData = {
   active?: string;
   setActive: Dispatch<SetStateAction<string | undefined>>;
   deleteNote: (id: string) => void;
+  search: (text?: string) => Promise<void>;
 };
 
 export const NotesContext = createContext<NotesContextData | undefined>(
@@ -27,6 +28,10 @@ export const NotesContext = createContext<NotesContextData | undefined>(
 const NotesProvider: FC<PropsWithChildren> = ({ children }) => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [active, setActive] = useState<string>();
+
+  const fetch = async () => {
+    setNotes(await client.all());
+  };
 
   const addNewNote = () => {
     const newNote = { createdAt: Date.now(), text: "", id: uuidv4() };
@@ -51,16 +56,20 @@ const NotesProvider: FC<PropsWithChildren> = ({ children }) => {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
   };
 
+  const search = async (text?: string) => {
+    if (!text) {
+      return fetch();
+    }
+    return setNotes(await client.search(text));
+  };
+
   useEffect(() => {
-    const fetch = async () => {
-      setNotes(await client.all());
-    };
     fetch();
   }, []);
 
   return (
     <NotesContext.Provider
-      value={{ notes, addNewNote, save, setActive, active, deleteNote }}
+      value={{ notes, addNewNote, save, setActive, active, deleteNote, search }}
     >
       {children}
     </NotesContext.Provider>
