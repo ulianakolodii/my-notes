@@ -26,9 +26,11 @@ const Sidebar = () => {
         <IconButton onClick={addNewNote}>
           <PlusIcon />
         </IconButton>
-        <IconButton onClick={handleDeleteClick}>
-          <TrashIcon />
-        </IconButton>
+        {active ? (
+          <IconButton onClick={handleDeleteClick}>
+            <TrashIcon />
+          </IconButton>
+        ) : null}
       </Toolbar>
       {notes.length ? (
         notes.map((el) => (

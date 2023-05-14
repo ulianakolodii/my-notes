@@ -5,7 +5,7 @@ import React, {
   useState,
   FC,
   PropsWithChildren,
-  useEffect,
+  useCallback,
 } from "react";
 import { Note } from "./types";
 import client from "./indexedDB";
@@ -29,9 +29,9 @@ const NotesProvider: FC<PropsWithChildren> = ({ children }) => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [active, setActive] = useState<string>();
 
-  const fetch = async () => {
+  const fetch = useCallback(async () => {
     setNotes(await client.all());
-  };
+  }, [setNotes]);
 
   const addNewNote = () => {
     const newNote = { createdAt: Date.now(), text: "", id: uuidv4() };
@@ -39,33 +39,38 @@ const NotesProvider: FC<PropsWithChildren> = ({ children }) => {
     setNotes((prevNotes) => [newNote, ...prevNotes]);
   };
 
-  const save = (note: Note) => {
-    client.save(note);
-    setNotes((prevNotes) =>
-      prevNotes.map((old) => {
-        if (old.id === note.id) {
-          return note;
-        }
-        return old;
-      })
-    );
-  };
+  const save = useCallback(
+    (note: Note) => {
+      client.save(note);
+      setNotes((prevNotes) =>
+        prevNotes.map((old) => {
+          if (old.id === note.id) {
+            return note;
+          }
+          return old;
+        })
+      );
+    },
+    [setNotes]
+  );
 
-  const deleteNote = (id: string) => {
-    client.delete(id);
-    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
-  };
+  const deleteNote = useCallback(
+    (id: string) => {
+      client.delete(id);
+      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+    },
+    [setNotes]
+  );
 
-  const search = async (text?: string) => {
-    if (!text) {
-      return fetch();
-    }
-    return setNotes(await client.search(text));
-  };
-
-  useEffect(() => {
-    fetch();
-  }, []);
+  const search = useCallback(
+    async (text?: string) => {
+      if (!text) {
+        return fetch();
+      }
+      return setNotes(await client.search(text));
+    },
+    [setNotes, fetch]
+  );
 
   return (
     <NotesContext.Provider
