@@ -1,0 +1,14 @@
+.app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.app>div:nth-child(1) {
+    flex-basis: 300px;
+    max-width: 340px;
+}
+
+.app>div:nth-child(2) {
+    flex: 1;
+}
