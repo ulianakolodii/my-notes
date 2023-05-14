@@ -1,0 +1,47 @@
+.ListItem {
+    padding: 24px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.active {
+    background-color: #FFE490;
+}
+
+.text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #808080;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.wrapper>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+}
+
+.wrapper>div {
+    display: flex;
+    gap: 8px;
+}
+
+.divider {
+    height: 1px;
+    width: 100%;
+    background-color: #E6E6E6;
+    position: absolute;
+    bottom: -24px;
+}
+
+.ListItem:last-child .divider {
+    display: none;
+}

@@ -1,0 +1,7 @@
+.Toolbar {
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+    min-height: 56px;
+    box-sizing: border-box;
+}
