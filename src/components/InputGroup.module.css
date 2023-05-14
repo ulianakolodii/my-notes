@@ -1,0 +1,16 @@
+.InputGroup {
+    width: 100%;
+    max-width: 240px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-radius: 8px;
+    background: var(--input-group-background);
+    box-shadow: inset 0 0 0 1px var(--input-group-border);
+    transition: box-shadow 0.2s;
+    color: var(--input-group-color);
+}
+
+.InputGroup:focus-within {
+    box-shadow: inset 0 0 0 1.5px var(--input-group-hover-border);
+}
