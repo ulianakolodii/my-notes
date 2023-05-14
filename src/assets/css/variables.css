@@ -1,0 +1,11 @@
+:root {
+    --border-color: #E6E6E6;
+    --icon-color: #727272;
+    --icon-button-color: #F0F0F0;
+    --input-group-background: #fff;
+    --input-group-border: #E6E6E6;
+    --input-group-color: #646b8c;
+    --input-group-hover-border: hsl(213, 100%, 51%);
+    --input-color: #646b8c;
+    --input-placeholder-color: #727272;
+}
