@@ -1,0 +1,10 @@
+.SearchBox {
+    margin-left: auto;
+    padding: 0 0 0 8px;
+}
+
+.SearchBox svg {
+    width: 16px;
+    fill: var(--icon-color);
+    margin-right: 4px;
+}
