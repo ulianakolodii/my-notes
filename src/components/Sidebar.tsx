@@ -17,6 +17,7 @@ const Sidebar = () => {
   const handleDeleteClick = () => {
     if (window.confirm("Are you sure?") && active) {
       deleteNote(active);
+      setActive(undefined);
     }
   };
 
